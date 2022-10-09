@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/genya0407/ruby-saddler-reporter-github
-  revision: d19f7069ddd4fe4166d09e7b672da228f4a9ab5d
+  revision: 715133be2dcf06d8922fa36b653c7515556cdcc1
   branch: feature/log-octokit-option
   specs:
     saddler-reporter-github (2.1.0)
