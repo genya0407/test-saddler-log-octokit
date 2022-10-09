@@ -5,8 +5,14 @@ on: pull_request
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_ACCESS_TOKEN: ${{ github.token }}
+      ghprbPullId: ${{ github.event.number }}
+      ghprbTargetBranch: origin/${{ github.head_ref }}
     steps:
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
     - uses: ruby/setup-ruby@v1
       with:
         bundler-cache: true
