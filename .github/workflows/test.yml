@@ -1,0 +1,55 @@
+name: Test log option
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_ACCESS_TOKEN: ${{ github.token }}
+      ghprbPullId: ${{ github.event.number }}
+      ghprbTargetBranch: origin/${{ github.head_ref }}
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.event.pull_request.head.sha }}
+    - uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+    - name: Run CommitComment
+      run: |
+        bundle exec rubocop \
+          --require rubocop/formatter/checkstyle_formatter \
+          --format RuboCop::Formatter::CheckstyleFormatter \
+        | bundle exec saddler report \
+          --require saddler/reporter/github \
+          --reporter Saddler::Reporter::Github::CommitComment \
+          --options 'reporter-github-log_octokit:true'
+    - name: Run CommitReviewComment
+      run: |
+        bundle exec rubocop \
+          --require rubocop/formatter/checkstyle_formatter \
+          --format RuboCop::Formatter::CheckstyleFormatter \
+        | bundle exec saddler report \
+          --require saddler/reporter/github \
+          --reporter Saddler::Reporter::Github::CommitReviewComment \
+          --options 'reporter-github-log_octokit:true'
+    - name: Run PullRequestComment
+      run: |
+        bundle exec rubocop \
+          --require rubocop/formatter/checkstyle_formatter \
+          --format RuboCop::Formatter::CheckstyleFormatter \
+        | bundle exec saddler report \
+          --require saddler/reporter/github \
+          --reporter Saddler::Reporter::Github::PullRequestComment \
+          --options 'reporter-github-log_octokit:true'
+    - name: Run PullRequestReviewComment
+      run: |
+        bundle exec rubocop \
+          --require rubocop/formatter/checkstyle_formatter \
+          --format RuboCop::Formatter::CheckstyleFormatter \
+        | bundle exec saddler report \
+          --require saddler/reporter/github \
+          --reporter Saddler::Reporter::Github::PullRequestReviewComment \
+          --options 'reporter-github-log_octokit:true'
+
