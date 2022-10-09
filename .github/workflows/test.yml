@@ -15,7 +15,7 @@ jobs:
         bundle exec rubocop \
           --require rubocop/formatter/checkstyle_formatter \
           --format RuboCop::Formatter::CheckstyleFormatter \
-        | bundle exec saddler \
+        | bundle exec saddler report \
           --require saddler/reporter/github \
           --reporter Saddler::Reporter::Github::CommitComment \
           --options 'reporter-github-log_octokit:true'
@@ -24,7 +24,7 @@ jobs:
         bundle exec rubocop \
           --require rubocop/formatter/checkstyle_formatter \
           --format RuboCop::Formatter::CheckstyleFormatter \
-        | bundle exec saddler \
+        | bundle exec saddler report \
           --require saddler/reporter/github \
           --reporter Saddler::Reporter::Github::CommitReviewComment \
           --options 'reporter-github-log_octokit:true'
@@ -33,7 +33,7 @@ jobs:
         bundle exec rubocop \
           --require rubocop/formatter/checkstyle_formatter \
           --format RuboCop::Formatter::CheckstyleFormatter \
-        | bundle exec saddler \
+        | bundle exec saddler report \
           --require saddler/reporter/github \
           --reporter Saddler::Reporter::Github::PullRequestComment \
           --options 'reporter-github-log_octokit:true'
@@ -42,7 +42,7 @@ jobs:
         bundle exec rubocop \
           --require rubocop/formatter/checkstyle_formatter \
           --format RuboCop::Formatter::CheckstyleFormatter \
-        | bundle exec saddler \
+        | bundle exec saddler report \
           --require saddler/reporter/github \
           --reporter Saddler::Reporter::Github::PullRequestReviewComment \
           --options 'reporter-github-log_octokit:true'
